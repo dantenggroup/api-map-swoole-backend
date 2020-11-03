@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+namespace %NAMESPACE%;
+
+use App\Command\CrontabBase;
+use Hyperf\Command\Annotation\Command;
+
+/**
+ * @Command
+ */
+class %CLASS% extends CrontabBase
+{
+    /**
+     * 脚本说明
+     * @var string
+     */
+    protected string $description = '脚本说明';
+
+    /**
+     * 能否重复执行，默认不能重复执行
+     * @var bool
+     */
+    protected bool $can_repeat = false;
+
+    /**
+     * 注册命令，分配执行频率
+     * 如：
+     *    $this->dailyAt('02:30');
+     *    $this->weeklyOn(1); or $this->weeklyOn(1, '02:30');
+     *    $this->monthlyOn(1); or $this->monthlyOn(1, '02:30');
+     */
+    protected function register()
+    {
+        $this->name = 'crontab:dummy_command';
+        // $this->dailyAt('02:30');
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed 返回值可以被记录
+     */
+    public function handle()
+    {
+        return true;
+    }
+}
