@@ -1,19 +1,22 @@
 {
-    "name": "hyperf/hyperf-skeleton",
+    "name": "dantenggroup/api-map-swoole-backend",
     "type": "project",
     "keywords": [
         "php",
         "swoole",
-        "framework",
+        "map",
+        "api",
         "hyperf",
         "microservice",
         "middleware"
     ],
-    "description": "A coroutine framework that focuses on hyperspeed and flexible, specifically use for build microservices and middlewares.",
+    "description": "Api-Map is a web application to be a map with API Ocean",
     "license": "Apache-2.0",
     "require": {
         "php": ">=7.2",
         "ext-swoole": ">=4.5",
+        "ext-json": "*",
+        "ext-redis": "*",
         "hyperf/cache": "~2.0.0",
         "hyperf/command": "~2.0.0",
         "hyperf/config": "~2.0.0",
@@ -34,7 +37,9 @@
         "hyperf/amqp": "~2.0.0",
         "hyperf/model-cache": "~2.0.0",
         "hyperf/elasticsearch": "~2.0.0",
-        "hyperf/tracer": "~2.0.0"
+        "hyperf/tracer": "~2.0.0",
+        "hyperf/validation": "~2.0.0",
+        "symfony/var-dumper": "^5.1"
     },
     "require-dev": {
         "swoole/ide-helper": "^4.5",
@@ -55,7 +60,10 @@
         "psr-4": {
             "App\\": "app/"
         },
-        "files": []
+        "files": [
+            "app/Helpers/functions.php",
+            "app/Helpers/error.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

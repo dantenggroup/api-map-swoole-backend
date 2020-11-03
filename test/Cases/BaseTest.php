@@ -17,11 +17,10 @@ use HyperfTest\HttpTestCase;
  * @internal
  * @coversNothing
  */
-class ExampleTest extends HttpTestCase
+class BaseTest extends HttpTestCase
 {
-    public function testExample()
+    public function testServer()
     {
-        $this->assertTrue(true);
-        $this->assertTrue(is_array($this->get('/')));
+        $this->spGet('/');
     }
 }
