@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+ini_set('memory_limit', '1024M');
 ini_set('display_errors', 'on');
 ini_set('display_startup_errors', 'on');
 
