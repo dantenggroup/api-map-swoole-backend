@@ -17,6 +17,18 @@ use Hyperf\Process\Annotation\Process;
 /**
  * @Process
  */
-class AsyncQueueConsumer extends ConsumerProcess
+class ConfigCatchQueueConsumer extends ConsumerProcess
 {
+    protected string $version = '1.0';
+
+    public function handle(): void
+    {
+        while (true) {
+            $version = config('version', '');
+            if ($version != '') {
+                study_notice_list(true);
+            }
+            sleep(1);
+        }
+    }
 }

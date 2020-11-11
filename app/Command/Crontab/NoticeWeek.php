@@ -53,8 +53,7 @@ class NoticeWeek extends CrontabBase
         $content = json_encode([
             'content' => "Study Permit Processing Time:\nChina ==> {$study['CN']}\nLastUpdated ==> {$study['lastupdated']}"
         ]);
-        $notice_list = (array)config('study_notice_list');
-        foreach ($notice_list as $url) {
+        foreach (study_notice_list() as $url) {
             http_client()->send(new Request(
                 'POST',
                 $url,

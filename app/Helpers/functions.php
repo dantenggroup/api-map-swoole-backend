@@ -280,3 +280,14 @@ function get_client_ip()
     }
     return (string)Arr::get($request->getServerParams(), 'remote_addr', '127.0.0.1');
 }
+
+/**
+ * @param bool $is_update
+ * @return array
+ */
+function study_notice_list(bool $is_update = false) : array
+{
+    return sp_catch('amp_study_notice_list', function () {
+        return (array)config('study_notice_list');
+    }, 50000, $is_update);
+}
