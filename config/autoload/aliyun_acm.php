@@ -13,7 +13,7 @@ return [
     'enable' => env('ALIYUN_ACM_ENABLE', false),
     'use_standalone_process' => true,
     'interval' => 5,
-    'endpoint' => 'addr-hk-internal.edas.aliyuncs.com',
+    'endpoint' => env('ALIYUN_ACM_ENDPOINT', 'addr-hk-internal.edas.aliyuncs.com'),
     'namespace' => '10bb6b0f-4791-4ef4-b3fb-52cac6bcd1a3',
     'data_id' => 'hyperf',
     'group' => 'api-map',

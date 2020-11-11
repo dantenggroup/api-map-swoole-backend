@@ -15,7 +15,7 @@ class IndexController extends AbstractController
             'framework' => 'hyperf',
             'level' => env('APP_ENV'),
             'time' => time(),
-            'config' => config('test')
+            'config_version' => config('version')
         ]);
     }
 }

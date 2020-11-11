@@ -50,12 +50,18 @@ class NoticeWeek extends CrontabBase
         $response = http_client()->get('https://www.canada.ca/content/dam/ircc/documents/json/data-ptime-en.json');
         $json = json_decode($response->getBody()->getContents(), true);
         $study = $json['study'];
-        http_client()->send(new Request(
-            'POST',
-            'http://47.56.100.135:2333/XHMrEMKQGpqkUgee9IKL8Aiv5QQiYAOmB9KlWk-IKObzCwNcd7QaAo8JSOzI_s9kKfdeDJ-1TSQEoeYpQNTKKu3oVDfeHRY_NVQNkVWSFonxB_KYQ7VRhGQeoboKgRVg02qSRRMKhLP6ijF-EoRBO73IWS2jg986ivAxtGlgLmrnD0GeF94tCcc4WkmACrf3ZlL_eRpn3W0WRmiwFn4jo69IAelsTMoibMX50plYh3FumFxNcY8-gNoSEkMNjxDCdzI9um8nQSxr3AzMgzWZUR2U-gEGNoZfQ6JaRFir1dnIr9IdgfyG_D3zWqJ38vQYm7uEMqmPHxC53UrKm8hrSM03R1I2bOsxQGCnBKoDruEiNEhzIEWlZPmvg07qPKAVCx-bH4u7yqG-XlA-TgEDiJufaT5EjkPcKiTfpJqeji6z8KfpW_SuKiHZsjQQqcCuI0ketQA8vfM6R2ISEVDv64f_uum6Qk6-fhHU_I1oSsC1FG1zxj0i_G_v2tWEXMBFuI0yEfONDQCGXDy-DtzUvjPfxPwqVTwqwW0unKtIH20-UhaF0udbnqfkC7xI5fsdF6f0tvFTseq5R3JsmhtVuLGzPzANRf2K7XPihv_gtdj8c1GvbQrVgBCnubLTP4gxSae-lZFIZU3E-DeGTHyItesaomuPVbNVRCngHiukELk/notice',
-            ['Content-Type' => 'application/json; charset=utf-8'],
-            json_encode(['content' => "Study Permit Processing Time:\nChina ==> {$study['CN']}\nLastUpdated ==> {$study['lastupdated']}"])
-        ));
+        $content = json_encode([
+            'content' => "Study Permit Processing Time:\nChina ==> {$study['CN']}\nLastUpdated ==> {$study['lastupdated']}"
+        ]);
+        $notice_list = (array)config('study_notice_list');
+        foreach ($notice_list as $url) {
+            http_client()->send(new Request(
+                'POST',
+                $url,
+                ['Content-Type' => 'application/json; charset=utf-8'],
+                $content
+            ));
+        }
         return true;
     }
 }
