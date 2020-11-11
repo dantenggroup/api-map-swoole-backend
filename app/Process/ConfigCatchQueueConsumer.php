@@ -26,7 +26,8 @@ class ConfigCatchQueueConsumer extends ConsumerProcess
         while (true) {
             $version = config('version', '');
             if ($version != '') {
-                study_notice_list(true);
+                study_notice_list($this->version == $version);
+                $this->version = $version;
             }
             sleep(1);
         }
