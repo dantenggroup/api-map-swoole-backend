@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Command\Crontab;
 
 use App\Command\CrontabBase;
+use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Hyperf\Command\Annotation\Command;
@@ -50,8 +51,15 @@ class NoticeWeek extends CrontabBase
         $response = http_client()->get('https://www.canada.ca/content/dam/ircc/documents/json/data-ptime-en.json');
         $json = json_decode($response->getBody()->getContents(), true);
         $study = $json['study'];
+        $time_part = explode(' ', $study['CN']);
+        $start_time = Carbon::parse('2020-10-16');
+        if ($time_part[1] == 'weeks') {
+            $start_time->addWeeks((int)$time_part[0]);
+        } else {
+            $start_time->addDays((int)$time_part[0]);
+        }
         $content = json_encode([
-            'content' => "Study Permit Processing Time:\nChina ==> {$study['CN']}\nLastUpdated ==> {$study['lastupdated']}"
+            'content' => "Study Permit Processing Time:\nChina ==> {$study['CN']}\nFinished at ==> {$start_time->toDateString()}\nLastUpdated ==> {$study['lastupdated']}"
         ]);
         foreach (study_notice_list() as $url) {
             http_client()->send(new Request(
